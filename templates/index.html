@@ -2,12 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>TF2 Pub Push Tracker</title>
 
     <link rel="stylesheet" href="static/stylesheets/index.css">
     <script src="static/javascript/index.js" defer></script>
 </head>
 <body>
+    <h2>TF2 Pub Push Tracker</h2>
+
+    <p>Input information about the current map:</p>
+
+    <label>Casual
+        <input type="radio" name="casualOrCompetitive" checked>
+    </label>
+    <label>Competitive
+        <input type="radio" name="casualOrCompetitive">
+    </label>
+
+    <br><br>
+
+    <label>Gamemode
+        <select id="gameModeSelect">
+            <option value="attackDefend">Attack/Defend</option>
+            <option value="koth">King of the Hill</option>
+            <option value="payload">Payload</option>
+        </select>
+    </label>
+
+    <br><br>
+
+    <label>Map
+        <select id="mapSelect"></select>
+    </label>
+
+    <br><br>
+
+    <!-- Inputs for KOTH -->
+
+    <div id="kothContent">
+        <label>Remaining Time BLU
+            <input type="time">
+        </label>
+
+        <label>Remaining Time RED
+            <input type="time">
+        </label>
+    </div>
+
+    <div id="payloadAndAttackDefendContent" style="display: flex"></div>
+
+    <br><br>
+
+    <button type="submit" id="submitButton">SUBMIT</button>
+
+
 
 </body>
 </html>
