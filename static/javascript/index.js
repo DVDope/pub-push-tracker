@@ -259,10 +259,16 @@ submitButton.addEventListener("click", async function (e) {
         body: JSON.stringify(formData)
     })
         .then(async response => {
-            console.log("It worked")
+            console.log("Entry was saved into the database")
+            alert("Entry was saved into database");
+
+            updateMapList();
+            updateTimeInputBasedOnMap();
+
         })
         .catch(e => {
             console.error("There was an error!", e)
+            alert("There was an error!")
         })
 })
 

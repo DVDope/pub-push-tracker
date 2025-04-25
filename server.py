@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, send_file, Response
 
 
+from src.create_database import create_database, insert_koth_match, insert_other_match
+
+
 app = Flask(__name__, static_folder='static')
 
 
@@ -11,6 +14,8 @@ def index():
 
     :returns: html file of index
     """
+
+    create_database()
 
     return render_template('index.html')
 
@@ -23,7 +28,14 @@ def addEntry():
     :return:
     """
 
-    print(request.get_json())
+    create_database()
+
+    data = request.get_json()
+
+    if data['gamemode'] == 'koth':
+        insert_koth_match(data)
+    else:
+        insert_other_match(data)
 
     return Response({})
 
