@@ -4,6 +4,8 @@ const mapSelect = document.getElementById("mapSelect");
 const kothContent = document.getElementById("kothContent");
 const payloadAndAtrtackDefendContent = document.getElementById("payloadAndAttackDefendContent");
 
+const submitButton = document.getElementById("submitButton");
+
 
 const mapsByGameMode = {
     attackDefend: [
@@ -141,11 +143,11 @@ function createTimeInputs(numberOfInputs) {
         let timeContentBlock = `
         <div class="time-input">
             <label>Point ${i + 1}
-                <input type="time">
+                <input type="time" name="timeRemaining[]">
             </label>
             <br>
             <label>RED held
-                <input type="checkbox" name="redHeld">
+                <input type="checkbox" name="redHeld[]">
             </label>
         </div>
          `
@@ -158,7 +160,7 @@ function createTimeInputs(numberOfInputs) {
 
 
 function addCheckBoxGroup() {
-    const checkboxes = document.querySelectorAll('input[name="redHeld"]');
+    const checkboxes = document.querySelectorAll('input[name="redHeld[]"]');
 
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', () => {
@@ -207,6 +209,61 @@ gamemodeSelect.addEventListener("change", function (e) {
 
 mapSelect.addEventListener("change", function (e) {
     updateTimeInputBasedOnMap();
+})
+
+
+submitButton.addEventListener("click", async function (e) {
+    // Get info
+    let casualOrComp = document.querySelector('input[name="casualOrCompetitive"]:checked').value;
+    let serverType = document.querySelector('input[name="serverType"]:checked').value;
+    let gamemode = document.getElementById("gameModeSelect").value;
+    let map = document.getElementById("mapSelect").value;
+
+    let remainingTimeBluKoth = document.getElementById("remainingTimeBluKoth").value
+    let remainingTimeRedKoth = document.getElementById("remainingTimeRedKoth").value
+
+    let timeRemaining = [];
+    let redHeld = [];
+
+    if (gamemode !== 'koth') {
+        remainingTimeBluKoth = -1;
+        remainingTimeRedKoth = -1;
+
+        let timeRemainingFields = document.getElementsByName("timeRemaining[]");
+        for (let i = 0; i < timeRemainingFields.length; i++) {
+            timeRemaining.push(timeRemainingFields[i].value);
+        }
+
+        let redHeldFields = document.getElementsByName("redHeld[]");
+        for (let i = 0; i < redHeldFields.length; i++) {
+            redHeld.push(redHeldFields[i].checked);
+        }
+    }
+
+    const formData = {
+        casualOrComp: casualOrComp,
+        serverType: serverType,
+        gamemode: gamemode,
+        map: map,
+        remainingTimeBluKoth: remainingTimeBluKoth,
+        remainingTimeRedKoth: remainingTimeRedKoth,
+        timeRemaining: timeRemaining,
+        redHeld: redHeld
+    }
+
+    const response = await fetch('http://127.0.0.1:5000/addEntry', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then(async response => {
+            console.log("It worked")
+        })
+        .catch(e => {
+            console.error("There was an error!", e)
+        })
 })
 
 

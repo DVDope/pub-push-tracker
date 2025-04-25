@@ -13,10 +13,22 @@
     <p>Input information about the current map:</p>
 
     <label>Casual
-        <input type="radio" name="casualOrCompetitive" checked>
+        <input value="casual" type="radio" name="casualOrCompetitive" checked>
     </label>
     <label>Competitive
-        <input type="radio" name="casualOrCompetitive">
+        <input value="competitive" type="radio" name="casualOrCompetitive">
+    </label>
+
+    <br><br>
+
+    <label>Valve Server
+        <input value="valve" type="radio" name="serverType" checked>
+    </label>
+    <label>Uncle Topia
+        <input value="uncleTopia" type="radio" name="serverType">
+    </label>
+    <label>Other community server
+        <input value="communityServer" type="radio" name="serverType">
     </label>
 
     <br><br>
@@ -41,11 +53,11 @@
 
     <div id="kothContent">
         <label>Remaining Time BLU
-            <input type="time">
+            <input id="remainingTimeBluKoth" type="time">
         </label>
 
         <label>Remaining Time RED
-            <input type="time">
+            <input id="remainingTimeRedKoth" type="time">
         </label>
     </div>
 
@@ -54,8 +66,6 @@
     <br><br>
 
     <button type="submit" id="submitButton">SUBMIT</button>
-
-
 
 </body>
 </html>

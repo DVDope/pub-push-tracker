@@ -15,5 +15,18 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/addEntry', methods=['POST'])
+def addEntry():
+    """
+    Route for adding an entry into the database
+
+    :return:
+    """
+
+    print(request.get_json())
+
+    return Response({})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
